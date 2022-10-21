@@ -19,12 +19,13 @@ mongoose
     console.log(err);
   })
 
+app.use(express.json())
 app.use(cors())
 app.use(helmet())
 app.use(morgan("dev"))
 
 
-app.use("/api/v1", authRoutes)
+app.use("/api/v1/auth", authRoutes)
 
 app.listen(process.env.APP_PORT || 8000, () => {
   console.log("Api Server Is Running...");
