@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema(
     password: { type: String, require: true},
     img: { type: String},
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 module.exports = mongoose.model("User", UserSchema);

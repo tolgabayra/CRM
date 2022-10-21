@@ -8,6 +8,7 @@ const cors = require("cors")
 const morgan = require("morgan")
 
 const authRoutes = require("./routes/auth")
+const forgetPasswordRoutes = require("./routes/forgetPassword")
 
 dotnev.config()
 mongoose
@@ -26,6 +27,8 @@ app.use(morgan("dev"))
 
 
 app.use("/api/v1/auth", authRoutes)
+app.use("/api/v1/reset_password", forgetPasswordRoutes)
+
 
 app.listen(process.env.APP_PORT || 8000, () => {
   console.log("Api Server Is Running...");
