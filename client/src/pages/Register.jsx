@@ -19,28 +19,28 @@ export default function Register() {
 
     //Register İsteği
     const submitRegister = () => {
-        mainAxios.post("/api/v1/auth/register",{
+        mainAxios.post("/api/v1/auth/register", {
             username,
             email,
             password
         })
-        .then(() => {
-            message
-            .loading('Hesabınız Oluşturuluyor..', 2.5)
-            .then(() => message.success('Hesabınız oluşturuldu, Giriş sayfasına yönlendiriliyorsunuz.'))
+            .then(() => {
+                message
+                    .loading('Hesabınız Oluşturuluyor..', 2.5)
+                    .then(() => message.success('Hesabınız oluşturuldu, Giriş sayfasına yönlendiriliyorsunuz.'))
 
-            setTimeout(() => {
-              navigate("/login")
-            },4000)
-        })
-        .catch(err=>{
-            message
-            .loading('Hesabınız Oluşturuluyor..', 2.5)
-            .then(() => message.warning('Üzgünüz, Şuan bu işlemi gerçekleştiremiyoruz.', 2.5))
-        
+                setTimeout(() => {
+                    navigate("/login")
+                }, 4000)
+            })
+            .catch(err => {
+                message
+                    .loading('Hesabınız Oluşturuluyor..', 2.5)
+                    .then(() => message.warning('Üzgünüz, Şuan bu işlemi gerçekleştiremiyoruz.', 2.5))
 
-            console.log(err);
-        })
+
+                console.log(err);
+            })
     }
 
 
@@ -82,7 +82,7 @@ export default function Register() {
                                     },
                                 ]}
                             >
-                                <Input onChange={(e)=>setUsername(e.target.value)} placeholder='Kullanıcı Adı' />
+                                <Input onChange={(e) => setUsername(e.target.value)} placeholder='Kullanıcı Adı' />
                             </Form.Item>
 
                             <Form.Item
@@ -94,7 +94,7 @@ export default function Register() {
                                     },
                                 ]}
                             >
-                                <Input onChange={(e)=>setEmail(e.target.value)} placeholder='Eposta' />
+                                <Input onChange={(e) => setEmail(e.target.value)} placeholder='Eposta' />
                             </Form.Item>
 
                             <Form.Item
@@ -106,7 +106,7 @@ export default function Register() {
                                     },
                                 ]}
                             >
-                                <Input.Password onChange={(e)=>setPassword(e.target.value)} placeholder='Parola' />
+                                <Input.Password onChange={(e) => setPassword(e.target.value)} placeholder='Parola' />
                             </Form.Item>
 
                             <Form.Item

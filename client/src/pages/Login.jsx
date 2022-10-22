@@ -1,8 +1,17 @@
 import React from 'react'
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, message } from 'antd';
 import { Link } from 'react-router-dom';
+import { useDispatch } from "react-redux"
+import { login } from '../features/authSlice';
+import { mainAxios } from '../utils/appAxios';
+import { useState } from 'react';
 
 export default function Login() {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const dispatch = useDispatch()
+
     const onFinish = (values) => {
         console.log('Success:', values);
     };
@@ -10,7 +19,33 @@ export default function Login() {
         console.log('Failed:', errorInfo);
     };
 
-    
+    //Login İsteği
+    const submitLogin = () => {
+        mainAxios.post("/api/v1/auth/login", {
+            email,
+            password
+        })
+            .then((res) => {
+                message
+                    .loading('Giriş Yapılıyor...', 2.5)
+                    .then(() => message.success('Giriş Başarılı, Boards sayfasına yönlendiriliyorsunuz.'))
+                setTimeout(() => {
+                    dispatch(login())
+                    navigate("/boards/welcome")
+                }, 4000)
+
+                localStorage.setItem("_id", res.data._id)
+            })
+            .catch(err => {
+                message
+                    .loading('Giriş Yapılıyor..', 2.5)
+                    .then(() => message.warning('Üzgünüz, Şuan bu işlemi gerçekleştiremiyoruz.', 2.5))
+                console.log(err);
+            })
+    }
+
+
+
 
     return (
         <div>
@@ -36,7 +71,7 @@ export default function Login() {
                         <Form
                             name="basic"
 
-                            onFinish={onFinish}
+                            onFinish={submitLogin}
                             onFinishFailed={onFinishFailed}
                             autoComplete="off"
                         >
@@ -49,7 +84,7 @@ export default function Login() {
                                     },
                                 ]}
                             >
-                                <Input placeholder='Eposta'/>
+                                <Input onChange={(e)=>setEmail(e.target.value)} placeholder='Eposta' />
                             </Form.Item>
 
                             <Form.Item
@@ -61,9 +96,9 @@ export default function Login() {
                                     },
                                 ]}
                             >
-                                <Input.Password placeholder='Parola' />
+                                <Input.Password onChange={(e)=>setPassword(e.target.value)} placeholder='Parola' />
                             </Form.Item>
-                          
+
 
 
 
