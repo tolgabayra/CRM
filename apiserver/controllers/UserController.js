@@ -17,7 +17,7 @@ const getUser = async (req, res) => {
             res.status(500).json(err)
         }
     }else{
-        res.status(403).json("You can not this!")
+        res.status(403).json("You can not do this!")
     }
    
 }
