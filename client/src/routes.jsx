@@ -7,6 +7,8 @@ import Register from "./pages/Register";
 import BoardLayout from "./layouts/board/Index"
 import Sales from "./pages/boards/Sales";
 import Welcome from "./pages/boards/Welcome";
+import Dasboard from "./pages/boards/Dasboard";
+import Documents from "./pages/boards/Documents";
 
 
 
@@ -29,7 +31,9 @@ export default function Router(){
             path: "/boards",
             element: <BoardLayout />,
             children: [
-                {path: "sales", element: <Sales />}
+                {path: "sales", element: <Sales />},
+                {path: "", element: <Dasboard />},
+                {path: "documents", element: <Documents />}
 
             ]
         },
