@@ -4,6 +4,11 @@ import Login from "./pages/Login";
 import Page404 from "./pages/Page404";
 import Register from "./pages/Register";
 
+import BoardLayout from "./layouts/board/Index"
+import Sales from "./pages/boards/Sales";
+import Welcome from "./pages/boards/Welcome";
+
+
 
 
 export default function Router(){
@@ -19,6 +24,14 @@ export default function Router(){
         {
             path: "*",
             element: <Page404 />
+        },
+        {
+            path: "/boards",
+            element: <BoardLayout />,
+            children: [
+                {path: "sales", element: <Sales />}
+
+            ]
         },
         {
             path: "/",
