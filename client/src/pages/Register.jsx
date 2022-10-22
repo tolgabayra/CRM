@@ -13,7 +13,6 @@ export default function Register() {
 
     const navigate = useNavigate()
 
-
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
