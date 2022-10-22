@@ -6,8 +6,10 @@ const mongoose = require("mongoose")
 const helmet = require("helmet")
 const cors = require("cors")
 const morgan = require("morgan")
+const cookieParser = require("cookie-parser")
 
 const authRoutes = require("./routes/auth")
+const userRoutes = require("./routes/users")
 const forgetPasswordRoutes = require("./routes/forgetPassword")
 
 dotnev.config()
@@ -21,12 +23,14 @@ mongoose
   })
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(cors())
 app.use(helmet())
 app.use(morgan("dev"))
 
 
 app.use("/api/v1/auth", authRoutes)
+app.use("/api/v1/users", userRoutes)
 app.use("/api/v1/reset_password", forgetPasswordRoutes)
 
 

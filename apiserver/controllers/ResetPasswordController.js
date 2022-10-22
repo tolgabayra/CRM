@@ -1,6 +1,5 @@
 const User = require("../models/User")
 const UserPassResetToken = require("../models/UserPassResetToken")
-const { uuidv4 } = require("uuid")
 const { hashPassword } = require("../scripts/helper")
 
 const createPasswordLink = async (req,res) => {
