@@ -108,8 +108,9 @@ export default function Login() {
                                     Giriş Yap
                                 </Button>
                             </Form.Item>
+                            <span>Hesabınız Yok mu ? </span>
                             <Link classNameName=' text-xs text-gray-500' to="/register">
-                                Hesabınız Yok mu ? Şimdi Oluşturun
+                                Şimdi Oluşturun
                             </Link>
 
                         </Form>

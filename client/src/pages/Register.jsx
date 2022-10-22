@@ -116,8 +116,10 @@ export default function Register() {
                                     Kayıt Ol
                                 </Button>
                             </Form.Item>
+                            <span>Zaten hesabınız var mı? </span>
+
                             <Link classNameName='text-xs text-gray-500 m-auto' to="/login">
-                                Zaten hesabınız var mı ? Giriş Yapın
+                                 Giriş Yapın
                             </Link>
 
                         </Form>
