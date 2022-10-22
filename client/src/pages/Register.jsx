@@ -1,14 +1,50 @@
 import React from 'react'
-import { Button, Checkbox, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Button, Checkbox, Form, Input, message } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { mainAxios } from '../utils/appAxios';
+
+
 
 export default function Register() {
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    };
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const navigate = useNavigate()
+
+
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+    //Register İsteği
+    const submitRegister = () => {
+        mainAxios.post("/api/v1/auth/register",{
+            username,
+            email,
+            password
+        })
+        .then(() => {
+            message
+            .loading('Hesabınız Oluşturuluyor..', 2.5)
+            .then(() => message.success('Hesabınız oluşturuldu, Giriş sayfasına yönlendiriliyorsunuz.'))
+
+            setTimeout(() => {
+              navigate("/login")
+            },4000)
+        })
+        .catch(err=>{
+            message
+            .loading('Hesabınız Oluşturuluyor..', 2.5)
+            .then(() => message.warning('Üzgünüz, Şuan bu işlemi gerçekleştiremiyoruz.', 2.5))
+        
+
+            console.log(err);
+        })
+    }
+
+
     return (
         <div>
 
@@ -33,10 +69,10 @@ export default function Register() {
 
                         <Form
                             name="basic"
-
-                            onFinish={onFinish}
+                            onFinish={submitRegister}
                             onFinishFailed={onFinishFailed}
                             autoComplete="off"
+                            su
                         >
                             <Form.Item
                                 name="Username"
@@ -47,7 +83,7 @@ export default function Register() {
                                     },
                                 ]}
                             >
-                                <Input placeholder='Kullanıcı Adı' />
+                                <Input onChange={(e)=>setUsername(e.target.value)} placeholder='Kullanıcı Adı' />
                             </Form.Item>
 
                             <Form.Item
@@ -59,7 +95,7 @@ export default function Register() {
                                     },
                                 ]}
                             >
-                                <Input placeholder='Eposta' />
+                                <Input onChange={(e)=>setEmail(e.target.value)} placeholder='Eposta' />
                             </Form.Item>
 
                             <Form.Item
@@ -71,7 +107,7 @@ export default function Register() {
                                     },
                                 ]}
                             >
-                                <Input.Password placeholder='Parola' />
+                                <Input.Password onChange={(e)=>setPassword(e.target.value)} placeholder='Parola' />
                             </Form.Item>
 
                             <Form.Item
