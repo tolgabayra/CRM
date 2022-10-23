@@ -9,6 +9,7 @@ import Sales from "./pages/boards/Sales";
 import Welcome from "./pages/boards/Welcome";
 import Dasboard from "./pages/boards/Dasboard";
 import Documents from "./pages/boards/Documents";
+import Contacts from "./pages/boards/Contacts";
 
 
 
@@ -33,7 +34,8 @@ export default function Router(){
             children: [
                 {path: "sales", element: <Sales />},
                 {path: "", element: <Dasboard />},
-                {path: "documents", element: <Documents />}
+                {path: "documents", element: <Documents />},
+                {path: "contacts", element: <Contacts />}
 
             ]
         },
