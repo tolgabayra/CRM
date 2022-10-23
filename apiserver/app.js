@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser")
 
 const authRoutes = require("./routes/auth")
 const userRoutes = require("./routes/users")
+const contactRoutes = require("./routes/contacts")
 const forgetPasswordRoutes = require("./routes/forgetPassword")
 
 dotnev.config()
@@ -31,6 +32,7 @@ app.use(morgan("dev"))
 
 app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/users", userRoutes)
+app.use("/api/v1/contacts", contactRoutes)
 app.use("/api/v1/reset_password", forgetPasswordRoutes)
 
 
