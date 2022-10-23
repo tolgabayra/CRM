@@ -12,20 +12,21 @@ export default function Section2() {
 
                     <div className="box-border order-first w-full text-black border-solid md:w-1/2 md:pl-10 md:order-none">
                         <h2 className="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl">
-                            Boost Productivity
+                            Verimliliği Artırın
                         </h2>
                         <p className="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-12 xl:pr-32 lg:text-lg">
-                            Build an atmosphere that creates productivity in your organization and your company culture.
+                            Kuruluşunuzda ve şirket kültürünüzde üretkenlik yaratan bir atmosfer oluşturun.
                         </p>
                         <ul className="p-0 m-0 leading-6 border-0 border-gray-300">
                             <li className="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
-                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Maximize productivity and growth
+                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Verimliliği ve büyümeyi en üst düzeye çıkarın.
+
                             </li>
                             <li className="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
-                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Speed past your competition
+                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Rekabeti hızla geç.
                             </li>
                             <li className="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
-                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Learn the top techniques
+                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Müşterilerinizi takip edin.
                             </li>
                         </ul>
                     </div>
@@ -34,20 +35,20 @@ export default function Section2() {
 
                     <div className="box-border w-full text-black border-solid md:w-1/2 md:pl-6 xl:pl-32">
                         <h2 className="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl">
-                            Automated Tasks
+                            Özel Görevler Atama
                         </h2>
                         <p className="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-10 lg:text-lg">
-                            Save time and money with our revolutionary services. We are the leaders in the industry.
-                        </p>
+                        Devrim niteliğindeki hizmetlerimizle zamandan ve paradan tasarruf edin.                        </p>
                         <ul className="p-0 m-0 leading-6 border-0 border-gray-300">
                             <li className="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
-                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Automated task management workflow
+                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Otomatik görev yönetimi iş akışı
+
                             </li>
                             <li className="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
-                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Detailed analytics for your data
+                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Verileriniz için ayrıntılı analizler
                             </li>
                             <li className="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
-                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Some awesome integrations
+                                <span className="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span className="text-sm font-bold">✓</span></span> Bazı harika entegrasyonlar
                             </li>
                         </ul>
                     </div>

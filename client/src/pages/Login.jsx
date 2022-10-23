@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Checkbox, Form, Input, message } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux"
 import { login } from '../features/authSlice';
 import { mainAxios } from '../utils/appAxios';
@@ -11,6 +11,7 @@ export default function Login() {
     const [password, setPassword] = useState("")
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -24,14 +25,14 @@ export default function Login() {
         mainAxios.post("/api/v1/auth/login", {
             email,
             password
-        })
+        },{withCredentials: true})
             .then((res) => {
                 message
                     .loading('Giriş Yapılıyor...', 2.5)
                     .then(() => message.success('Giriş Başarılı, Boards sayfasına yönlendiriliyorsunuz.'))
                 setTimeout(() => {
                     dispatch(login())
-                    navigate("/boards/welcome")
+                    navigate("/boards")
                 }, 4000)
 
                 localStorage.setItem("_id", res.data._id)
@@ -39,7 +40,7 @@ export default function Login() {
             .catch(err => {
                 message
                     .loading('Giriş Yapılıyor..', 2.5)
-                    .then(() => message.warning('Üzgünüz, Şuan bu işlemi gerçekleştiremiyoruz.', 2.5))
+                    .then(() => message.warning('Eposta veya parolanız yanlış.', 2.5))
                 console.log(err);
             })
     }

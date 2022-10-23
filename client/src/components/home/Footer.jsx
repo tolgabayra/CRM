@@ -8,7 +8,7 @@ export default function Footer() {
                     <nav className="flex flex-wrap justify-center -mx-5 -my-2">
                         <div className="px-5 py-2">
                             <a href="#" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-                                About
+                                Hakkımızda
                             </a>
                         </div>
                         <div className="px-5 py-2">
@@ -16,26 +16,18 @@ export default function Footer() {
                                 Blog
                             </a>
                         </div>
+                   
                         <div className="px-5 py-2">
                             <a href="#" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-                                Team
+                                Fiyatladırma Politikamız
                             </a>
                         </div>
                         <div className="px-5 py-2">
                             <a href="#" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-                                Pricing
+                                İletişim
                             </a>
                         </div>
-                        <div className="px-5 py-2">
-                            <a href="#" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-                                Contact
-                            </a>
-                        </div>
-                        <div className="px-5 py-2">
-                            <a href="#" className="text-base leading-6 text-gray-500 hover:text-gray-900">
-                                Terms
-                            </a>
-                        </div>
+                    
                     </nav>
                     <div className="flex justify-center mt-8 space-x-6">
                         <a href="#" className="text-gray-400 hover:text-gray-500">
@@ -70,7 +62,7 @@ export default function Footer() {
                         </a>
                     </div>
                     <p className="mt-8 text-base leading-6 text-center text-gray-400">
-                        © 2022 Toba CRM, Inc. All rights reserved.
+                        © 2022 Toba CRM, Inc. Tüm hakları Saklıdır.
                     </p>
                 </div>
             </section>

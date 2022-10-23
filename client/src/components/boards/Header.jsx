@@ -1,57 +1,88 @@
 import React from 'react'
-import { Dropdown, Menu, Space } from 'antd';
+import { Dropdown, Menu, message, Space } from 'antd';
 
 
 import { useState } from 'react'
 import { mainAxios } from '../../utils/appAxios'
-import { Link } from "react-router-dom"
-
-
-const menu = (
-    <Menu
-     className=' rounded-lg'
-        items={[
-            {
-                label: <Link to="profile">Profil</Link>,
-                key: '0',
-            },
-            {
-                label: <Link to="setting">Ayarlar</Link>,
-                key: '1',
-            },
-            {
-                type: 'divider',
-            },
-            {
-                label: <Link to="logout">Çıkış Yap</Link>,
-                key: '3',
-            },
-        ]}
-    />
-);
-
-
-
-
-
+import { Link, useNavigate } from "react-router-dom"
+import { useEffect } from 'react';
 
 
 export default function Header() {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
 
-    const getUserInfo = () => {
-        mainAxios.get(`/api/v1/users/`)
+    const navigate = useNavigate()
+    const logoutPopup = () => {
+        console.log("TIK");
+        mainAxios.post("/api/v1/auth/logout")
+            .then((res) => {
+                message.success("Çıkış İşlemi Başarılı.", 2.0)
+                setTimeout(() => {
+                    navigate("/login")
+
+                }, 2000);
+            })
+            .catch(err => {
+                console.log(err);
+                message.warning("İşlem başarısız.")
+            })
     }
 
+
+    const menu = (
+        <Menu
+            className=' rounded-lg'
+            items={[
+                {
+                    label: <Link to="profile">Profil</Link>,
+                    key: '0',
+                },
+                {
+                    label: <Link to="setting">Ayarlar</Link>,
+                    key: '1',
+                },
+                {
+                    type: 'divider',
+                },
+                {
+                    label: <span onClick={logoutPopup}>Çıkış Yap</span>,
+                    key: '3',
+                },
+            ]}
+        />
+    );
+    
+
+   
+
+    useEffect(() => {
+        getUserInfo()
+    }, [])
+
+    const getUserInfo = () => {
+        mainAxios.get(`/api/v1/users/${localStorage.getItem("_id")}`, { withCredentials: true })
+            .then((res) => {
+                console.log(res.data);
+                setEmail(res.data.email)
+                setUsername(res.data.username)
+            })
+            .catch(err => {
+                console.log(err);
+                localStorage.clear()
+            })
+
+    }
+
+
     const submitLogout = () => {
-      mainAxios.post("/api/v1/auth/logout")
-      .then(() => {
-        
-      })
-      .catch(err=>{
-        console.log(err);
-      })
+        mainAxios.post("/api/v1/auth/logout")
+            .then(() => {
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
 
@@ -72,24 +103,24 @@ export default function Header() {
                     <input type="text" role="search" placeholder="Search..." className="py-2 pl-10 pr-4 w-full border-4 border-transparent placeholder-gray-400 focus:bg-gray-50 rounded-lg" />
                 </div>
                 <div className="flex flex-shrink-0 items-center ml-auto">
-                <Dropdown overlay={menu} trigger={['click']}>
-                <a onClick={(e) => e.preventDefault()}>
-                <button className="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
-                        <span className="sr-only">User Menu</span>
-                        <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
-                            <span className="font-semibold">grandyh@gmail.com</span>
-                            <span className="text-sm text-gray-600">Grandy</span>
-                        </div>
-                        <span className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
-                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="user profile photo" className="h-full w-full object-cover" />
-                        </span>
-                        <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" className="hidden sm:block h-6 w-6 text-gray-300">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </a>
-            </Dropdown>
-                   
+                    <Dropdown overlay={menu} trigger={['click']}>
+                        <a onClick={(e) => e.preventDefault()}>
+                            <button className="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
+                                <span className="sr-only">User Menu</span>
+                                <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
+                                    <span className="font-semibold">{email}</span>
+                                    <span className="text-sm text-gray-600">{username}</span>
+                                </div>
+                                <span className="h-12 w-12 ml-2 sm:ml-3 mr-2 bg-gray-100 rounded-full overflow-hidden">
+                                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="user profile photo" className="h-full w-full object-cover" />
+                                </span>
+                                <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" className="hidden sm:block h-6 w-6 text-gray-300">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </a>
+                    </Dropdown>
+
                     <div className="border-l pl-3 ml-3 space-x-1">
                         <button className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
                             <span className="sr-only">Notifications</span>

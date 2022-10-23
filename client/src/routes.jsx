@@ -10,7 +10,17 @@ import Welcome from "./pages/boards/Welcome";
 import Dasboard from "./pages/boards/Dasboard";
 import Documents from "./pages/boards/Documents";
 import Contacts from "./pages/boards/Contacts";
+import { useSelector } from "react-redux";
+import Profile from "./pages/boards/Profile";
 
+
+const ProtectedRoute = () => {
+  const user = useSelector((state)=> state.auth.user)
+  if(!user){
+    return <Login />
+  }
+  return <BoardLayout />
+}
 
 
 
@@ -30,12 +40,13 @@ export default function Router(){
         },
         {
             path: "/boards",
-            element: <BoardLayout />,
+            element: <ProtectedRoute />,
             children: [
                 {path: "sales", element: <Sales />},
                 {path: "", element: <Dasboard />},
                 {path: "documents", element: <Documents />},
-                {path: "contacts", element: <Contacts />}
+                {path: "contacts", element: <Contacts />},
+                {path: "profile", element: <Profile />}
 
             ]
         },

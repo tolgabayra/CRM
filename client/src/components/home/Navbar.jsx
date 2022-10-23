@@ -11,9 +11,9 @@ export default function Navbar() {
                             <span className="mx-auto text-xl font-black leading-none text-gray-900 select-none"> Toba CRM<span className="text-blue-600">.</span></span>
                         </a>
                         <nav className="flex flex-wrap items-center mb-5 text-base md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-gray-200">
-                            <a href="#_" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Home</a>
-                            <a href="#_" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Features</a>
-                            <a href="#_" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Pricing</a>
+                            <a href="#_" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Anasayfa</a>
+                            <a href="#_" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Neler Sunuyoruz?</a>
+                            <a href="#_" className="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Fiyat Politikamız</a>
                         </nav>
                     </div>
 
