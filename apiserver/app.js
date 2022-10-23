@@ -25,7 +25,7 @@ mongoose
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({origin: true, credentials: true}))
 app.use(helmet())
 app.use(morgan("dev"))
 

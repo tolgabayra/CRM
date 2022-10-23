@@ -37,12 +37,14 @@ const login = async (req, res) => {
             const refreshToken = generateRefreshToken(data)
 
             res.cookie("access_token", accessToken,{
+                origin: '*',
                 httpOnly: true
             })
             res.cookie("refresh_token", refreshToken,{
+                origin: '*',
                 httpOnly: true
             })
-            res.status(200).json(user)
+            res.status(200).json(user, accessToken, refreshToken)
         }else{
             res.status(401).json("Wrong Credentials")
         }
