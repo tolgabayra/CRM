@@ -1,19 +1,17 @@
 import React from 'react'
 import { Button, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
-
+import { SnippetsOutlined, IdcardOutlined, PicCenterOutlined, MoneyCollectOutlined } from '@ant-design/icons';
 export default function Leftbar() {
     return (
         <aside className="hidden sm:flex sm:flex-col">
             <Link to="/boards" className="inline-flex items-center justify-center h-16 w-20 bg-blue-600 hover:bg-blue-500 focus:bg-blue-500">
-                <svg fill="none" viewBox="0 0 64 64" className="h-12 w-12">
-                    <title>Company logo</title>
-                    <path d="M32 14.2c-8 0-12.9 4-14.9 11.9 3-4 6.4-5.6 10.4-4.5 2.3.6 4 2.3 5.7 4 2.9 3 6.3 6.4 13.7 6.4 7.9 0 12.9-4 14.8-11.9-3 4-6.4 5.5-10.3 4.4-2.3-.5-4-2.2-5.7-4-3-3-6.3-6.3-13.7-6.3zM17.1 32C9.2 32 4.2 36 2.3 43.9c3-4 6.4-5.5 10.3-4.4 2.3.5 4 2.2 5.7 4 3 3 6.3 6.3 13.7 6.3 8 0 12.9-4 14.9-11.9-3 4-6.4 5.6-10.4 4.5-2.3-.6-4-2.3-5.7-4-2.9-3-6.3-6.4-13.7-6.4z" fill="#fff" />
-                </svg>
+              
             </Link>
             <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
                 <nav className="flex flex-col mx-4 my-6 space-y-4">
 
+                  
                     <Tooltip placement="right" title="Dashboard" color='blue'>
                         <Link to="/boards" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
                             <span className="sr-only">Dashboard</span>
@@ -22,29 +20,26 @@ export default function Leftbar() {
                             </svg>
                         </Link>
                     </Tooltip>
-                    <Tooltip placement="right" title="Folders" color='blue'>
-                        <Link to="/boards/files" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
-                            <span className="sr-only">Folders</span>
-                            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-                            </svg>
+                    <Tooltip placement="right" title="Hedefler" color='blue'>
+                        <Link to="/boards/deals" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
+                            <MoneyCollectOutlined className='text-xl' />
+                        </Link>
+                    </Tooltip>
+                    <Tooltip placement="right" title="Aktivitelerim" color='blue'>
+                        <Link to="/boards/activities" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
+                            <PicCenterOutlined className='text-xl' />
                         </Link>
                     </Tooltip>
 
                     <Tooltip placement="right" title="Kişilerim" color='blue'>
                         <Link to="/boards/contacts" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
-                            <span className="sr-only">Contacts</span>
-                            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
+                            <IdcardOutlined className='text-xl' />
                         </Link>
                     </Tooltip>
                     <Tooltip placement="right" title="Dokümanlarım" color='blue'>
                         <Link to="/boards/documents" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
-                            <span className="sr-only">Documents</span>
-                            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                            </svg>
+                            <SnippetsOutlined className='text-xl' />
+
                         </Link>
                     </Tooltip>
 

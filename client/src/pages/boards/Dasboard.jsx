@@ -1,3 +1,4 @@
+import { Divider } from 'antd'
 import React from 'react'
 
 export default function Dasboard() {
@@ -6,7 +7,8 @@ export default function Dasboard() {
             <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
                 <div className="mr-6 mb-1">
                     <h1 className="text-4xl font-semibold mb-2">Dashboard</h1>
-                    <h2 className="text-gray-600 ml-0.5">Mobile UX/UI Design course</h2>
+                    <Divider />
+
                 </div>
                 <div className="flex flex-wrap items-start justify-end -mb-3">
                     <button className="inline-flex px-5 py-2 text-blue-600 hover:text-blue-700 focus:text-blue-700 hover:bg-blue-100 focus:bg-blue-100 border border-blue-600 rounded-md mb-3">
@@ -72,7 +74,7 @@ export default function Dasboard() {
             </section>
             <section className="grid mt-6 md:grid-cols-2 xl:grid-cols-4 xl:grid-rows-3 xl:grid-flow-col gap-6">
                 <div className="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
-                    <div className="px-6 py-5 font-semibold border-b border-gray-100">The number of applied and left students per month</div>
+                    <div className="px-6 py-5 font-semibold border-b border-gray-100">Aylık kayıt olan müşteri grafiği</div>
                     <div className="p-4 flex-grow">
                         <div className="flex items-center justify-center h-full px-4 py-16 text-gray-400 text-3xl font-semibold bg-gray-100 border-2 border-gray-200 border-dashed rounded-md">Chart</div>
                     </div>
@@ -173,7 +175,7 @@ export default function Dasboard() {
                     </div>
                 </div>
                 <div className="flex flex-col row-span-3 bg-white shadow rounded-lg">
-                    <div className="px-6 py-5 font-semibold border-b border-gray-100">Students by type of studying</div>
+                    <div className="px-6 py-5 font-semibold border-b border-gray-100">Sektöre göre müşterilerin grafiği</div>
                     <div className="p-4 flex-grow">
                         <div className="flex items-center justify-center h-full px-4 py-24 text-gray-400 text-3xl font-semibold bg-gray-100 border-2 border-gray-200 border-dashed rounded-md">Chart</div>
                     </div>

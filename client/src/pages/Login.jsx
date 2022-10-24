@@ -25,7 +25,7 @@ export default function Login() {
         mainAxios.post("/api/v1/auth/login", {
             email,
             password
-        },{withCredentials: true})
+        }, { withCredentials: true })
             .then((res) => {
                 message
                     .loading('Giriş Yapılıyor...', 2.5)
@@ -59,9 +59,9 @@ export default function Login() {
                     >
 
                         <p className="mt-6 font-normal text-center text-white md:mt-0">
-                           Hoşgeldin,<br />
-                           Bu ekrandan hesabına giriş yapabilirsin.< br/>
-                          <div className='mt-2 text-red-100 font-extralight font-serif'>Parolanınızı Kimseyle Paylaşmayınız!</div> 
+                            Hoşgeldin,<br />
+                            Bu ekrandan hesabına giriş yapabilirsin.< br />
+                            <div className='mt-2 text-red-100 font-extralight font-serif'>Parolanınızı Kimseyle Paylaşmayınız!</div>
                         </p>
 
 
@@ -86,7 +86,7 @@ export default function Login() {
                                     },
                                 ]}
                             >
-                                <Input onChange={(e)=>setEmail(e.target.value)} placeholder='Eposta' />
+                                <Input onChange={(e) => setEmail(e.target.value)} placeholder='Eposta' />
                             </Form.Item>
 
                             <Form.Item
@@ -99,14 +99,18 @@ export default function Login() {
                                     },
                                 ]}
                             >
-                                <Input.Password onChange={(e)=>setPassword(e.target.value)} placeholder='Parola' />
-                                <Link className="text-blue-600" to="/reset_password" >Parolamı Unuttum ?</Link>
+                                <Input.Password onChange={(e) => setPassword(e.target.value)} placeholder='Parola' />
+
                             </Form.Item>
+                            <div className='flex justify-end'>
+                                <Link className=" text-blue-600" to="/reset_password" >Parolamı Unuttum ?</Link>
+                            </div>
 
 
 
 
                             <Form.Item
+                            className='mt-2'
                             >
                                 <Button block htmlType="submit">
                                     Giriş Yap
