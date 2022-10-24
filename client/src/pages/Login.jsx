@@ -29,7 +29,7 @@ export default function Login() {
             .then((res) => {
                 message
                     .loading('Giriş Yapılıyor...', 2.5)
-                    .then(() => message.success('Giriş Başarılı, Boards sayfasına yönlendiriliyorsunuz.'))
+                    .then(() => message.success('Giriş Başarılı, Panel sayfasına yönlendiriliyorsunuz.'))
                 setTimeout(() => {
                     dispatch(login())
                     navigate("/boards")
@@ -59,8 +59,9 @@ export default function Login() {
                     >
 
                         <p className="mt-6 font-normal text-center text-white md:mt-0">
-                            With the power of K-WD, you can now focus only on functionaries for your digital products, while leaving the
-                            UI design on us!
+                           Hoşgeldin,<br />
+                           Bu ekrandan hesabına giriş yapabilirsin.< br/>
+                          <div className='mt-2 text-red-100 font-extralight font-serif'>Parolanınızı Kimseyle Paylaşmayınız!</div> 
                         </p>
 
 
@@ -90,6 +91,7 @@ export default function Login() {
 
                             <Form.Item
                                 name="password"
+                                className='mb-4'
                                 rules={[
                                     {
                                         required: true,
@@ -98,6 +100,7 @@ export default function Login() {
                                 ]}
                             >
                                 <Input.Password onChange={(e)=>setPassword(e.target.value)} placeholder='Parola' />
+                                <Link className="text-blue-600" to="/reset_password" >Parolamı Unuttum ?</Link>
                             </Form.Item>
 
 
@@ -110,8 +113,8 @@ export default function Login() {
                                 </Button>
                             </Form.Item>
                             <span>Hesabınız Yok mu ? </span>
-                            <Link classNameName=' text-xs text-gray-500' to="/register">
-                                Şimdi Oluşturun
+                            <Link classNameName=' text-xs' to="/register">
+                                <span className='text-blue-600'>Şimdi Oluşturun</span>
                             </Link>
 
                         </Form>

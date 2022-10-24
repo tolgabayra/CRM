@@ -39,7 +39,7 @@ export default function Header() {
                     key: '0',
                 },
                 {
-                    label: <Link to="setting">Ayarlar</Link>,
+                    label: <Link to="settings">Ayarlar</Link>,
                     key: '1',
                 },
                 {
@@ -105,7 +105,7 @@ export default function Header() {
                 <div className="flex flex-shrink-0 items-center ml-auto">
                     <Dropdown overlay={menu} trigger={['click']}>
                         <a onClick={(e) => e.preventDefault()}>
-                            <button className="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
+                            <button className="inline-flex items-center p-1 pr-2 pl-2 hover:bg-gray-100 focus:bg-gray-100 rounded-md">
                                 <span className="sr-only">User Menu</span>
                                 <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
                                     <span className="font-semibold">{email}</span>

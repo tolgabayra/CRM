@@ -1,6 +1,5 @@
 import React from 'react'
 import { Button, Checkbox, Divider, Modal, Radio, Space, Table } from 'antd'
-
 import { red } from '@ant-design/colors';
 import { useState } from 'react';
 
@@ -161,7 +160,7 @@ export default function Contacts() {
     return (
         <div>
 
-            <Modal title="Basic Modal" open={isEditModalOpen} onOk={handleEditOk} onCancel={handleEditCancel}>
+            <Modal title="Yeni Kişi Ekle" okType='' okText="Ekle" cancelText="İptal" open={isEditModalOpen} onOk={handleEditOk} onCancel={handleEditCancel}>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
@@ -180,7 +179,7 @@ export default function Contacts() {
                         </svg>
                         Kişilerimi Yönet
                     </button>
-                    <button onClick={() => setOpen(true)} className="inline-flex px-5 py-2 text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 rounded-md ml-6 mb-3">
+                    <button onClick={() => showEditModal()} className="inline-flex px-5 py-2 text-white bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 rounded-md ml-6 mb-3">
                         <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>

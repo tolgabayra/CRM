@@ -56,8 +56,9 @@ export default function Register() {
                     >
 
                         <p className="mt-6 font-normal text-center text-white md:mt-0">
-                            With the power of K-WD, you can now focus only on functionaries for your digital products, while leaving the
-                            UI design on us!
+                            Hoşgeldin,<br />
+                            Bu ekrandan hesabınızı oluşturabilirsiniz.< br />
+                            <div className='mt-2 text-red-100 font-extralight font-serif'>Parolanınızı Kimseyle Paylaşmayınız!</div>
                         </p>
 
 
@@ -118,8 +119,8 @@ export default function Register() {
                             </Form.Item>
                             <span>Zaten hesabınız var mı? </span>
 
-                            <Link classNameName='text-xs text-gray-500 m-auto' to="/login">
-                                 Giriş Yapın
+                            <Link classNameName='text-xs' to="/login">
+                                <span className='text-blue-600'>Giriş Yapın</span>
                             </Link>
 
                         </Form>

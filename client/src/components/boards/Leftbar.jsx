@@ -31,7 +31,7 @@ export default function Leftbar() {
                         </Link>
                     </Tooltip>
 
-                    <Tooltip placement="right" title="Contacts" color='blue'>
+                    <Tooltip placement="right" title="Kişilerim" color='blue'>
                         <Link to="/boards/contacts" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
                             <span className="sr-only">Contacts</span>
                             <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
@@ -39,7 +39,7 @@ export default function Leftbar() {
                             </svg>
                         </Link>
                     </Tooltip>
-                    <Tooltip placement="right" title="Documents" color='blue'>
+                    <Tooltip placement="right" title="Dokümanlarım" color='blue'>
                         <Link to="/boards/documents" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
                             <span className="sr-only">Documents</span>
                             <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">

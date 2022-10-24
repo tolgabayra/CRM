@@ -12,6 +12,8 @@ import Documents from "./pages/boards/Documents";
 import Contacts from "./pages/boards/Contacts";
 import { useSelector } from "react-redux";
 import Profile from "./pages/boards/Profile";
+import Settings from "./pages/boards/Settings";
+import ResetPassword from "./pages/ResetPassword";
 
 
 const ProtectedRoute = () => {
@@ -35,6 +37,10 @@ export default function Router(){
             element: <Register />
         },
         {
+            path: "reset_password",
+            element: <ResetPassword />
+        },
+        {
             path: "*",
             element: <Page404 />
         },
@@ -46,7 +52,8 @@ export default function Router(){
                 {path: "", element: <Dasboard />},
                 {path: "documents", element: <Documents />},
                 {path: "contacts", element: <Contacts />},
-                {path: "profile", element: <Profile />}
+                {path: "profile", element: <Profile />},
+                {path: "settings", element: <Settings />},
 
             ]
         },
