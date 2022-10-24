@@ -5,7 +5,7 @@ const verifyAuthorizaton = require("../middleware/verifyAuthorization")
 
 router.get("/:id",verifyAuthorizaton ,ContactController.getContact)
 router.get("/",verifyAuthorizaton ,ContactController.getAllContact)
-router.post("/",verifyAuthorizaton ,ContactController.createContact)
+router.post("/" ,ContactController.createContact)
 router.delete("/:id",verifyAuthorizaton ,ContactController.deleteContact)
 router.put("/:id",verifyAuthorizaton ,ContactController.updateContact)
 
