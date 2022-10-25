@@ -33,7 +33,7 @@ const updateContact = async (req, res) => {
             {
                 $set: req.body,
             },
-            {new: true}
+            { new: true }
         )
         res.status(200).json(updatedContact)
     } catch (err) {
@@ -57,8 +57,13 @@ const getContact = async (req, res) => {
 const getAllContact = async (req, res) => {
     const user_id = req.body.user_id
     try {
-        const contact = await Contact.find({user_id: user_id}).limit(200)
-        res.status(200).json(contact)
+        if (user_id) {
+            const contact = await Contact.find({ user_id: user_id }).limit(200)
+            res.status(200).json(contact)
+        }else{
+            res.status(400).json("You did bad request")
+        }
+
     } catch (err) {
         res.status(500).json(err)
     }
