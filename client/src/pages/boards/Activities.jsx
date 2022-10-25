@@ -83,7 +83,7 @@ export default function Activities() {
           <h1 className="text-4xl font-semibold mb-2">Aktivite Sayfası</h1>
         </div>
         <div className="flex flex-wrap items-start justify-end mb-3">
-        <button onClick={() => showEditModal()} className="inline-flex px-5 py-2 text-white bg-green-600 hover:bg-green-700 focus:bg-green-700 rounded-md ml-6 mb-3">
+          <button onClick={() => showEditModal()} className="inline-flex px-5 py-2 text-white bg-green-600 hover:bg-green-700 focus:bg-green-700 rounded-md ml-6 mb-3">
             <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
             </svg>
@@ -105,8 +105,8 @@ export default function Activities() {
       </div>
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="Tasklar" key="1">
-          
-        <Table columns={columns} dataSource={data} />
+
+          <Table columns={columns} dataSource={data} />
 
         </Tabs.TabPane>
         <Tabs.TabPane tab="Etkinlikler" key="2">

@@ -1,8 +1,110 @@
-import { Card, Col, Divider, Row, Steps } from 'antd'
+import { Card, Col, Divider, message, notification, Row, Steps } from 'antd'
+import React, { useState } from 'react'
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { v4 as uuidv4 } from 'uuid';
+import { SmileOutlined } from '@ant-design/icons';
 
-import React from 'react'
+const itemsFromBackend = [
+  { id: uuidv4(), content: "First task" },
+  { id: uuidv4(), content: "Second task" },
+  { id: uuidv4(), content: "Third task" },
+  { id: uuidv4(), content: "Fourth task" },
+  { id: uuidv4(), content: "Fifth task" }
+];
+
+const columnsFromBackend = {
+  [uuidv4()]: {
+    name: "Requested",
+    items: itemsFromBackend
+  },
+  [uuidv4()]: {
+    name: "To do",
+    items: []
+  },
+  [uuidv4()]: {
+    name: "In Progress",
+    items: []
+  },
+  [uuidv4()]: {
+    name: "Done",
+    items: []
+  }
+};
+
+
+
+
+const onDragEnd = (result, columns, setColumns) => {
+  if (!result.destination) return;
+  const { source, destination } = result;
+
+  if (source.droppableId !== destination.droppableId) {
+    const sourceColumn = columns[source.droppableId];
+    const destColumn = columns[destination.droppableId];
+    const sourceItems = [...sourceColumn.items];
+    const destItems = [...destColumn.items];
+    const [removed] = sourceItems.splice(source.index, 1);
+    destItems.splice(destination.index, 0, removed);
+
+    console.log(sourceColumn);
+    console.log(destColumn.name);
+
+
+
+    if (destColumn.name === "Done") {
+      notification.open({
+        message: 'Harika !',
+        description:
+          'Waoww Tebrikler, Bu Görevi Başarıyla Tamamladınız...',
+        icon: (
+          <SmileOutlined
+            style={{
+              color: '#108ee9',
+            }}
+          />
+        ),
+      });
+    
+    }else if(destColumn.name === "In Progress"){
+      message.info("Son Düzlüğe Gelsin, Şimdi Başarma zamanı :)")
+
+    }
+    else{
+      message.success("Başarılı", 1.5)
+
+    }
+    setColumns({
+      ...columns,
+      [source.droppableId]: {
+        ...sourceColumn,
+        items: sourceItems
+      },
+      [destination.droppableId]: {
+        ...destColumn,
+        items: destItems
+      }
+    });
+  } else {
+    const column = columns[source.droppableId];
+    const copiedItems = [...column.items];
+    const [removed] = copiedItems.splice(source.index, 1);
+    copiedItems.splice(destination.index, 0, removed);
+    setColumns({
+      ...columns,
+      [source.droppableId]: {
+        ...column,
+        items: copiedItems
+      }
+    });
+  }
+};
+
+
+
 
 export default function Deals() {
+  const [columns, setColumns] = useState(columnsFromBackend);
+
   return (
     <div>
       <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
@@ -26,125 +128,82 @@ export default function Deals() {
       </div>
       <Divider orientation="left"></Divider>
 
+      <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
+        <DragDropContext
+          onDragEnd={result => onDragEnd(result, columns, setColumns)}
+        >
+          {Object.entries(columns).map(([columnId, column], index) => {
+            return (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center"
+                }}
+                key={columnId}
+              >
+                <h2>{column.name}</h2>
+                <div style={{ margin: 8 }}>
+                  <Droppable droppableId={columnId} key={columnId}>
+                    {(provided, snapshot) => {
+                      return (
+                        <div
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                          style={{
+                            background: snapshot.isDraggingOver
+                              ? "lightblue"
+                              : "lightgrey",
+                            padding: 4,
+                            width: 250,
+                            minHeight: 500
+                          }}
+                        >
+                          {column.items.map((item, index) => {
+                            return (
+                              <Draggable
+                                key={item.id}
+                                draggableId={item.id}
+                                index={index}
+                              >
+                                {(provided, snapshot) => {
+                                  return (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      style={{
+                                        userSelect: "none",
+                                        padding: 16,
+                                        margin: "0 0 8px 0",
+                                        minHeight: "50px",
+                                        backgroundColor: snapshot.isDragging
+                                          ? "#263B4A"
+                                          : "#456C86",
+                                        color: "white",
+                                        ...provided.draggableProps.style
+                                      }}
+                                    >
+                                      {item.content}
+                                    </div>
+                                  );
+                                }}
+                              </Draggable>
+                            );
+                          })}
+                          {provided.placeholder}
+                        </div>
+                      );
+                    }}
+                  </Droppable>
+                </div>
+              </div>
+            );
+          })}
+        </DragDropContext>
+      </div>
 
-      <Row
-        className=''
-        gutter={{
-          xs: 8,
-          sm: 16,
-          md: 24,
-          lg: 32,
-        }}
-      >
-        <Col className="gutter-row" span={6}>
-          <Card
-            className='mb-2 rounded-md border-t-4 border-b-0 border-r-0 border-l-0 border-orange-500'
-            size='small'
 
-            style={{
-              width: 300,
-            }}
-          >
-            <p>Yeni Hedeflerim : 3</p>
-          </Card>
-          <div className=' rounded-md'>
-            <Card
-              title="Üyelik Yenileme Arayüz"
-              size='small'
-              className='mb-2 rounded-xl'
-              style={{
-                width: 300,
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>25.000 $</p>
-            </Card>
-            <Card
-              className='mb-2 rounded-xl'
-              size='small'
-
-              style={{
-                width: 300,
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-            <Card
-              className='mb-2 rounded-xl'
-              size='small'
-
-              style={{
-                width: 300,
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </div>
-        </Col>
-
-
-        <Col className="gutter-row" span={6}>
-        <Card
-            className='mb-2 rounded-md border-t-4 border-b-0 border-r-0 border-l-0 border-gray-500'
-            size='small'
-
-            style={{
-              width: 300,
-            }}
-          >
-            <p>Değerlendirme : 3</p>
-          </Card>
-          <div className=' rounded-md'>
-            <Card
-              title="Arayüz için diğer giderler"
-              size='small'
-              className='mb-2 rounded-xl'
-              style={{
-                width: 300,
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>5.000 $</p>
-            </Card>
-            <Card
-              className='mb-2 rounded-xl'
-              size='small'
-
-              style={{
-                width: 300,
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-            <Card
-              className='mb-2 rounded-xl'
-              size='small'
-
-              style={{
-                width: 300,
-              }}
-            >
-              <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p>
-            </Card>
-          </div>
-        </Col>
-        <Col className="gutter-row" span={6}>
-          <div>col-6</div>
-        </Col>
-        <Col className="gutter-row" span={6}>
-          <div>col-6</div>
-        </Col>
-      </Row>
 
     </div>
   )

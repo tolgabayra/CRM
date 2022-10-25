@@ -1,19 +1,46 @@
-import React from 'react'
-import { Button, Checkbox, Divider, Modal, Radio, Space, Table } from 'antd'
+import React, { useEffect } from 'react'
+import { Button, Checkbox, Divider, Form, Input, message, Modal, Radio, Space, Table } from 'antd'
 import { red } from '@ant-design/colors';
 import { useState } from 'react';
+import { mainAxios } from '../../utils/appAxios';
+
 
 export default function Contacts() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [fullName, setFullname] = useState("")
+    const [companyName, setCompanyname] = useState("")
+    const [email, setEmail] = useState("")
+    const [phoneNumber, setPhonenumber] = useState("")
+    const [contactOwner, setContactowner] = useState("")
+
+
+    const [myContactList, setMyContactList] = useState([])
+
+    useEffect(() => {
+        getContactsList()
+    }, [])
+
+    const getContactsList = () => {
+        mainAxios.get("/api/v1/contacts", {
+            user_id: localStorage.getItem("_id")
+        })
+            .then((res) => {
+                console.log(res);
+                setMyContactList(res.data)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
 
 
     const columns = [
         {
             title: 'Ad Soyad',
-            dataIndex: 'name',
+            dataIndex: 'fullName',
             defaultSortOrder: 'descend',
-            sorter: (a,b) => a.name.length - b.name.length,
-            
+            sorter: (a, b) => a.fullName.length - b.fullName.length,
+
 
         },
         {
@@ -30,13 +57,13 @@ export default function Contacts() {
         },
         {
             title: 'Telefon',
-            dataIndex: 'phone',
+            dataIndex: 'phoneNumber',
             defaultSortOrder: 'descend',
             sorter: (a, b) => a.phone - b.phone,
         },
         {
-            title: 'Address',
-            dataIndex: 'address',
+            title: 'Kime ait',
+            dataIndex: 'contactOwner',
             filters: [
                 {
                     text: 'London',
@@ -56,46 +83,9 @@ export default function Contacts() {
 
 
 
-    const data = [
-        {
-            key: '1',
-            name: 'Türkan Nazlıoğlu',
-            companyName: "Turkcell",
-            email: "trkynzli1241@gmail.com",
-            phone: "1111111111111",
-            address: 'Gazi Mahallesi Ulusoy, Ankara',
-        },
-        {
-            key: '2',
-            name: 'İrem Han',
-            companyName: "Demir İnşaat A.Ş",
-            email: "hanir@dinsaat.com",
-            phone: "222222222222",
-            address: 'Reşadiye, İstanbul',
-        },
-        {
-            key: '3',
-            name: 'Ahmet Unsuz',
-            companyName: "Teyfik Optik",
-            email: "unsuzamndet@gmail.com",
-            phone: "3333333333333",
-            address: 'Akçabaat Meydan, Trabzon',
-        },
-        {
-            key: '4',
-            name: 'Yavuz Resildar',
-            companyName: "Vodafone",
-            email: "hredilder@vodafone.com",
-            phone: "44444444444444",
-            address: 'Gölbaşı Parkı, Ankara',
-        },
-    ];
-
-
-
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-          console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
         }
     }
 
@@ -107,19 +97,129 @@ export default function Contacts() {
         setIsEditModalOpen(true);
     };
     const handleEditOk = () => {
-        setIsEditModalOpen(false);
+        mainAxios.post("/api/v1/contacts", {
+            fullName,
+            companyName,
+            email,
+            phoneNumber,
+            contactOwner,
+            user_id: localStorage.getItem("_id")
+        }, { withCredentials: true })
+            .then((res) => {
+                message.success("Yeni kişi eklendi.", 2.0)
+                setIsEditModalOpen(false);
+            })
+            .catch(err => {
+                message.error("Yeni kişi eklenemedi!", 2.0)
+            })
     };
     const handleEditCancel = () => {
         setIsEditModalOpen(false);
     };
 
+
+
+
+    const onFinish = (values) => {
+        console.log('Success:', values);
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+
+
     return (
         <div>
 
-            <Modal title="Yeni Kişi Ekle" okType='' okText="Ekle" cancelText="İptal" open={isEditModalOpen} onOk={handleEditOk} onCancel={handleEditCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+            <Modal
+                title="Yeni Kişi Ekle"
+                okType=''
+                okText="Ekle"
+                cancelText="İptal"
+                bodyStyle={{
+                    height: 300,
+                }}
+                width={600}
+                open={isEditModalOpen}
+                onOk={handleEditOk}
+                onCancel={handleEditCancel}>
+                <Form
+                    name="basic"
+                    labelCol={{
+                        span: 5,
+                    }}
+                    wrapperCol={{
+                        span: 18,
+                    }}
+                    initialValues={{
+                        remember: true,
+                    }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        label="Ad ve Soyad"
+                        name="username"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your username!',
+                            },
+                        ]}
+                    >
+                        <Input onChange={(e) => setFullname(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item
+                        label="Firma Adı"
+                        name="companyName"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your username!',
+                            },
+                        ]}
+                    >
+                        <Input onChange={(e) => setCompanyname(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item
+                        label="Email"
+                        name="email"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your username!',
+                            },
+                        ]}
+                    >
+                        <Input onChange={(e) => setEmail(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item
+                        label="Telefon"
+                        name="phoneNumber"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your username!',
+                            },
+                        ]}
+                    >
+                        <Input onChange={(e) => setPhonenumber(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item
+                        label="İletişim Sahibi"
+                        name="contactOwner"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your contactOwner!',
+                            },
+                        ]}
+                    >
+                        <Input onChange={(e) => setContactowner(e.target.value)} />
+                    </Form.Item>
+                </Form>
             </Modal>
 
 
@@ -150,14 +250,15 @@ export default function Contacts() {
                     <Divider />
 
                     <Table
-                    bordered
+                        bordered
                         rowSelection={{
                             type: "checkbox",
                             ...rowSelection,
                         }}
                         columns={columns}
-                        dataSource={data}
-                    />                </div>
+                        dataSource={myContactList}
+                    />
+                </div>
             </div>
         </div>
     )
