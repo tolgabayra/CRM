@@ -13,6 +13,9 @@ class BaseService {
     findOne(where){
         return this.BaseModel.findOne(where)
     }
+    findById(id){
+        return this.BaseModel.findById(id)
+    }
     update(id, data){
         return this.BaseModel.findByIdAndUpdate(id, data, {new: true})
     }
