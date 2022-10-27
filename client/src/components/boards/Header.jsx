@@ -46,7 +46,7 @@ export default function Header() {
                     type: 'divider',
                 },
                 {
-                    label: <span onClick={logoutPopup}>Çıkış Yap</span>,
+                    label: <div onClick={logoutPopup}>Çıkış Yap</div>,
                     key: '3',
                 },
             ]}

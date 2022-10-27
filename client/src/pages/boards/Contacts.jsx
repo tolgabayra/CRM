@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { Button, Checkbox, Divider, Form, Input, message, Modal, Radio, Space, Table } from 'antd'
+import { Button, Checkbox, Divider, Dropdown, Form, Input, Menu, message, Modal, Popconfirm, Radio, Space, Table } from 'antd'
 import { red } from '@ant-design/colors';
 import { useState } from 'react';
 import { mainAxios } from '../../utils/appAxios';
+
 
 
 export default function Contacts() {
@@ -13,6 +14,8 @@ export default function Contacts() {
     const [phoneNumber, setPhonenumber] = useState("")
     const [contactOwner, setContactowner] = useState("")
 
+    const [selectedContactsId, setSelectedContactsId] = useState([])
+
 
     const [myContactList, setMyContactList] = useState([])
 
@@ -20,10 +23,12 @@ export default function Contacts() {
         getContactsList()
     }, [])
 
+    useEffect(() => {
+        console.log(selectedContactsId);
+    }, [selectedContactsId])
+
     const getContactsList = () => {
-        mainAxios.get("/api/v1/contacts", {
-            user_id: localStorage.getItem("_id")
-        })
+        mainAxios.get("/api/v1/contacts", { withCredentials: true })
             .then((res) => {
                 console.log(res);
                 setMyContactList(res.data)
@@ -32,6 +37,23 @@ export default function Contacts() {
                 console.log(err);
             })
     }
+
+    const deleteContacts = () => {
+        mainAxios.post("/api/v1/contacts/multidelete", {
+            contactList: selectedContactsId
+        })
+            .then((res) => {
+                message.success("Silme İşlemi Başarılı")
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+    const cancel = (e) => {
+        console.log(e);
+        message.error('Click on No');
+      };
 
 
     const columns = [
@@ -59,7 +81,7 @@ export default function Contacts() {
             title: 'Telefon',
             dataIndex: 'phoneNumber',
             defaultSortOrder: 'descend',
-            sorter: (a, b) => a.phone - b.phone,
+            sorter: (a, b) => a.phoneNumber - b.phoneNumber,
         },
         {
             title: 'Kime ait',
@@ -86,6 +108,8 @@ export default function Contacts() {
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+
+            setSelectedContactsId(selectedRows.map(i => i._id))
         }
     }
 
@@ -108,6 +132,7 @@ export default function Contacts() {
             .then((res) => {
                 message.success("Yeni kişi eklendi.", 2.0)
                 setIsEditModalOpen(false);
+                getContactsList()
             })
             .catch(err => {
                 message.error("Yeni kişi eklenemedi!", 2.0)
@@ -117,15 +142,67 @@ export default function Contacts() {
         setIsEditModalOpen(false);
     };
 
-
-
-
     const onFinish = (values) => {
         console.log('Success:', values);
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+
+
+    const menu = (
+        <Menu
+            className='rounded-lg'
+            items={[
+                {
+                    label:
+                        <Popconfirm
+                        title="Silme İşlemini Onaylıyor musunuz?"
+                        onConfirm={deleteContacts}
+                        onCancel={cancel}
+                        okText="Evet"
+                        okType=''
+                        cancelText="Hayır"
+                        >
+                            <button
+                                className='text-red-600'>
+                                Seçilen Kişileri Sil
+                            </button>,
+                        </Popconfirm>,
+                    key: '0',
+                },
+                {
+                    label: <a href="https://www.aliyun.com">2nd menu item</a>,
+                    key: '1',
+                },
+
+            ]}
+        />
+    );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -229,12 +306,17 @@ export default function Contacts() {
                     <h2 className="text-gray-600 ml-0.5">İletişim bilgileri</h2>
                 </div>
                 <div className="flex flex-wrap items-start justify-end mb-3">
-                    <button className="inline-flex px-5 py-2 text-green-600 hover:text-green-700 focus:text-green-700 hover:bg-green-100 focus:bg-green-100 border border-green-600 rounded-md mb-3">
-                        <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-5 w-5 -ml-1 mt-0.5 mr-2">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                        </svg>
-                        Kişilerimi Yönet
-                    </button>
+                    <Dropdown overlay={menu} trigger={['click']}>
+                        <a onClick={(e) => e.preventDefault()}>
+                            <button className="inline-flex px-5 py-2 text-green-600 hover:text-green-700 focus:text-green-700 hover:bg-green-100 focus:bg-green-100 border border-green-600 rounded-md mb-3">
+                                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-5 w-5 -ml-1 mt-0.5 mr-2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                </svg>
+                                Kişilerimi Yönet
+                            </button>
+                        </a>
+                    </Dropdown>
+
                     <button onClick={() => showEditModal()} className="inline-flex px-5 py-2 text-white bg-green-600 hover:bg-green-700 focus:bg-green-700 rounded-md ml-6 mb-3">
                         <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -256,6 +338,7 @@ export default function Contacts() {
                             ...rowSelection,
                         }}
                         columns={columns}
+                        rowKey="fullName"
                         dataSource={myContactList}
                     />
                 </div>
