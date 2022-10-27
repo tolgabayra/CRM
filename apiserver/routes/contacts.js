@@ -8,9 +8,10 @@ const validate = require("../middleware/verifyValidate")
 
 
 router.get("/:id",verifyAuthorizaton ,ContactController.getContact)
-router.get("/" ,ContactController.getAllContact)
+router.get("/", verifyAuthToken ,ContactController.getAllContact)
 router.post("/",verifyAuthorizaton ,validate(schemas.createValidation) ,ContactController.createContact)
 router.delete("/:id",verifyAuthorizaton ,ContactController.deleteContact)
+router.post("/multidelete", ContactController.deleteMultiContact)
 router.put("/:id",verifyAuthorizaton ,ContactController.updateContact)
 
 

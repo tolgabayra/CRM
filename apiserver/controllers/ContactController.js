@@ -12,6 +12,7 @@ const createContact = async (req, res) => {
 }
 
 const deleteContact = async (req, res) => {
+
     const contact = await Contact.findById(req.params.id)
     if (contact) {
         try {
@@ -22,6 +23,21 @@ const deleteContact = async (req, res) => {
         }
     } else {
         req.status(404).json({ message: "Contact is not found!" })
+    }
+}
+
+
+const deleteMultiContact = async (req, res) => {
+    const result = req.body.contactList
+    console.log(result);
+    try {
+        result.forEach(async e => {
+            await Contact.findByIdAndDelete(e)
+            console.log("Çalıştı");
+        });
+        res.status(200).json({ message: "Contacts has been deleted." })
+    } catch (err) {
+        res.status(500).json(err)
     }
 
 }
@@ -55,12 +71,12 @@ const getContact = async (req, res) => {
 }
 
 const getAllContact = async (req, res) => {
-    const user_id = req.body.user_id
+    const user_id = req.user.id
     try {
         if (user_id) {
             const contact = await Contact.find({ user_id: user_id }).limit(200)
             res.status(200).json(contact)
-        }else{
+        } else {
             res.status(400).json("You did bad request")
         }
 
@@ -74,6 +90,7 @@ const getAllContact = async (req, res) => {
 module.exports = {
     createContact,
     deleteContact,
+    deleteMultiContact,
     updateContact,
     getContact,
     getAllContact
