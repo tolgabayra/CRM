@@ -8,16 +8,27 @@ import { mainAxios } from '../../utils/appAxios';
 
 export default function Contacts() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSecondModalOpen, setIsSecondModalOpen] = useState(false)
     const [fullName, setFullname] = useState("")
     const [companyName, setCompanyname] = useState("")
     const [email, setEmail] = useState("")
     const [phoneNumber, setPhonenumber] = useState("")
     const [contactOwner, setContactowner] = useState("")
-
     const [selectedContactsId, setSelectedContactsId] = useState([])
-
-
     const [myContactList, setMyContactList] = useState([])
+
+    let emptyUser = {
+        _id: null,
+        fullName: "",
+        companyName: "",
+        phoneNumber: null,
+        contactOwner: null,
+        createdAt: "",
+        updatedAt: ""
+    }
+    const [nowUserEdit, setNowUserEdit] = useState(emptyUser)
+
 
     useEffect(() => {
         getContactsList()
@@ -53,7 +64,7 @@ export default function Contacts() {
     const cancel = (e) => {
         console.log(e);
         message.error('Click on No');
-      };
+    };
 
 
     const columns = [
@@ -74,6 +85,7 @@ export default function Contacts() {
         {
             title: 'Email',
             dataIndex: 'email',
+            width: 230,
             defaultSortOrder: 'descend',
             sorter: (a, b) => a.email - b.email,
         },
@@ -98,11 +110,20 @@ export default function Contacts() {
             ],
             onFilter: (value, record) => record.address.indexOf(value) === 0,
         },
+        {
+            title: 'İşlemler',
+            dataIndex: '',
+            key: 'x',
+            render: (_, record) => {
+                return (
+                    <Button className='text-indigo-500' type='' onClick={() => handleEdit(record)}>
+                        Düzenle
+                    </Button>
+                )
+            }
+        }
 
     ];
-
-
-
 
 
     const rowSelection = {
@@ -114,6 +135,12 @@ export default function Contacts() {
     }
 
 
+    const handleEdit = (record) => {
+        console.log(record);
+        setIsSecondModalOpen(true)
+
+        setNowUserEdit({ ...record })
+    }
 
 
 
@@ -149,6 +176,18 @@ export default function Contacts() {
         console.log('Failed:', errorInfo);
     };
 
+    const handleOk = () => {
+        setIsSecondModalOpen(false)
+    }
+
+    const handleCancel = () => {
+        setIsSecondModalOpen(false)
+
+    }
+
+
+    
+
 
 
     const menu = (
@@ -158,17 +197,17 @@ export default function Contacts() {
                 {
                     label:
                         <Popconfirm
-                        title="Silme İşlemini Onaylıyor musunuz?"
-                        onConfirm={deleteContacts}
-                        onCancel={cancel}
-                        okText="Evet"
-                        okType=''
-                        cancelText="Hayır"
+                            title="Silme İşlemini Onaylıyor musunuz?"
+                            onConfirm={deleteContacts}
+                            onCancel={cancel}
+                            okText="Evet"
+                            okType=''
+                            cancelText="Hayır"
                         >
                             <button
                                 className='text-red-600'>
                                 Seçilen Kişileri Sil
-                            </button>,
+                            </button>
                         </Popconfirm>,
                     key: '0',
                 },
@@ -181,31 +220,6 @@ export default function Contacts() {
         />
     );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return (
         <div>
 
@@ -215,19 +229,22 @@ export default function Contacts() {
                 okText="Ekle"
                 cancelText="İptal"
                 bodyStyle={{
-                    height: 300,
+                    height: 450,
+                    paddingLeft: 20,
+                    paddingTop: 16,
                 }}
-                width={600}
+                width={500}
                 open={isEditModalOpen}
                 onOk={handleEditOk}
                 onCancel={handleEditCancel}>
                 <Form
                     name="basic"
+                    layout='vertical'
                     labelCol={{
                         span: 5,
                     }}
                     wrapperCol={{
-                        span: 18,
+                        span: 30,
                     }}
                     initialValues={{
                         remember: true,
@@ -300,6 +317,76 @@ export default function Contacts() {
             </Modal>
 
 
+
+
+
+
+            <Modal title="Kişi Düzenleme" okText="Kaydet" cancelText="İptal" open={isSecondModalOpen} onOk={handleOk} onCancel={handleCancel} okType="">
+                <Form
+                name=''
+                layout='vertical'
+                >
+                    <Form.Item
+                        label="Ad ve Soyad"
+                        name="username"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your username!',
+                            },
+                        ]}
+                    >
+                        <Input defaultValue={nowUserEdit.fullName} />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Firma Adı"
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your password!',
+                            },
+                        ]}
+                    >
+                        <Input defaultValue={nowUserEdit.companyName}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="Tel Numarası"
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your password!',
+                            },
+                        ]}
+                    >
+                        <Input defaultValue={nowUserEdit.phoneNumber}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="İletişim Sahibi"
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input your password!',
+                            },
+                        ]}
+                    >
+                        <Input defaultValue={nowUserEdit.contactOwner}/>
+                    </Form.Item>
+
+                   
+                    </Form>
+                
+               
+            </Modal>
+
+
+
+
+
+
             <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
                 <div className="mr-6 mb-1">
                     <h1 className="text-4xl font-semibold mb-2">Kişilerim</h1>
@@ -329,10 +416,18 @@ export default function Contacts() {
             <div className=''>
                 <div>
 
-                    <Divider />
+                    <Divider className='mt-3' />
 
                     <Table
                         bordered
+                        size='small'
+                        pagination={{
+                            defaultPageSize: 50,
+                        }}
+                        scroll={{
+
+                            y: 600
+                        }}
                         rowSelection={{
                             type: "checkbox",
                             ...rowSelection,
