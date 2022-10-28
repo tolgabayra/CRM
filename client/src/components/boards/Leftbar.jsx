@@ -2,14 +2,13 @@ import React from 'react'
 import { Button, Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 import { SnippetsOutlined, IdcardOutlined, PicCenterOutlined, MoneyCollectOutlined } from '@ant-design/icons';
-
 export default function Leftbar() {
     return (
         <aside className="hidden sm:flex sm:flex-col w-16">
-            <Link to="/boards" className="inline-flex items-center justify-center h-16 w-20 bg-blue-600 hover:bg-blue-500 focus:bg-blue-500">
-              
+            <Link to="/boards" className="inline-flex items-center justify-center h-14 w-20 bg-gray-800 hover:text-white pr-4 text-gray-50">
+            <span>CRM</span>
             </Link>
-            <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
+            <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-900">
                 <nav className="flex flex-col mx-2 my-6 space-y-3">
 
                   
@@ -45,7 +44,7 @@ export default function Leftbar() {
                     </Tooltip>
 
                 </nav>
-             
+                
             </div>
         </aside>
 

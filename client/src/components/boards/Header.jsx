@@ -89,7 +89,7 @@ export default function Header() {
 
     return (
         <div>
-            <header className="flex items-center h-16 px-6 sm:px-10 bg-white">
+            <header className="flex items-center h-14 px-6 sm:px-10 bg-white">
                 <button className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
                     <span className="sr-only">Menu</span>
                     <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
@@ -105,7 +105,7 @@ export default function Header() {
                 <div className="flex flex-shrink-0 items-center ml-auto">
                     <Dropdown overlay={menu} trigger={['click']}>
                         <a onClick={(e) => e.preventDefault()}>
-                            <button className="inline-flex items-center p-1 pr-2 pl-2 hover:bg-gray-100 focus:bg-gray-100 rounded-md">
+                            <button className="inline-flex items-center  pr-2 pl-2 hover:bg-gray-100 focus:bg-gray-100 rounded-md">
                                 <span className="sr-only">User Menu</span>
                                 <div className="hidden md:flex md:flex-col md:items-end md:leading-tight">
                                     <span className="font-semibold">{email}</span>

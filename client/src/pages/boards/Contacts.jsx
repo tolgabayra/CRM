@@ -50,16 +50,21 @@ export default function Contacts() {
     }
 
     const deleteContacts = () => {
-        mainAxios.post("/api/v1/contacts/multidelete", {
-            contactList: selectedContactsId
-        })
-            .then((res) => {
-                message.success("Silme İşlemi Başarılı")
-                console.log(res);
+        if (selectedContactsId === null) {
+            message.warning("Lütfen kişi seçtikten sonra deneyiniz")
+        } else {
+            mainAxios.post("/api/v1/contacts/multidelete", {
+                contactList: selectedContactsId
             })
-            .catch(err => {
-                console.log(err);
-            })
+                .then((res) => {
+                    message.success("Silme İşlemi Başarılı")
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+
     }
     const cancel = (e) => {
         console.log(e);
@@ -186,7 +191,7 @@ export default function Contacts() {
     }
 
 
-    
+
 
 
 
@@ -224,24 +229,28 @@ export default function Contacts() {
         <div>
 
             <Modal
+                className=''
                 title="Yeni Kişi Ekle"
                 okType=''
                 okText="Ekle"
                 cancelText="İptal"
                 bodyStyle={{
-                    height: 450,
+                    height: 400,
                     paddingLeft: 20,
-                    paddingTop: 16,
+                    paddingTop: 12,
+
                 }}
                 width={500}
+
                 open={isEditModalOpen}
                 onOk={handleEditOk}
                 onCancel={handleEditCancel}>
                 <Form
+                    className='m-1'
                     name="basic"
                     layout='vertical'
                     labelCol={{
-                        span: 5,
+                        span: 6,
                     }}
                     wrapperCol={{
                         span: 30,
@@ -256,6 +265,7 @@ export default function Contacts() {
                     <Form.Item
                         label="Ad ve Soyad"
                         name="username"
+                        className='mb-3'
                         rules={[
                             {
                                 required: true,
@@ -266,6 +276,7 @@ export default function Contacts() {
                         <Input onChange={(e) => setFullname(e.target.value)} />
                     </Form.Item>
                     <Form.Item
+                        className='mb-3'
                         label="Firma Adı"
                         name="companyName"
                         rules={[
@@ -278,6 +289,7 @@ export default function Contacts() {
                         <Input onChange={(e) => setCompanyname(e.target.value)} />
                     </Form.Item>
                     <Form.Item
+                        className='mb-3'
                         label="Email"
                         name="email"
                         rules={[
@@ -290,6 +302,7 @@ export default function Contacts() {
                         <Input onChange={(e) => setEmail(e.target.value)} />
                     </Form.Item>
                     <Form.Item
+                        className='mb-3'
                         label="Telefon"
                         name="phoneNumber"
                         rules={[
@@ -323,8 +336,8 @@ export default function Contacts() {
 
             <Modal title="Kişi Düzenleme" okText="Kaydet" cancelText="İptal" open={isSecondModalOpen} onOk={handleOk} onCancel={handleCancel} okType="">
                 <Form
-                name=''
-                layout='vertical'
+                    name=''
+                    layout='vertical'
                 >
                     <Form.Item
                         label="Ad ve Soyad"
@@ -349,7 +362,7 @@ export default function Contacts() {
                             },
                         ]}
                     >
-                        <Input defaultValue={nowUserEdit.companyName}/>
+                        <Input defaultValue={nowUserEdit.companyName} />
                     </Form.Item>
                     <Form.Item
                         label="Tel Numarası"
@@ -361,7 +374,7 @@ export default function Contacts() {
                             },
                         ]}
                     >
-                        <Input defaultValue={nowUserEdit.phoneNumber}/>
+                        <Input defaultValue={nowUserEdit.phoneNumber} />
                     </Form.Item>
                     <Form.Item
                         label="İletişim Sahibi"
@@ -373,13 +386,13 @@ export default function Contacts() {
                             },
                         ]}
                     >
-                        <Input defaultValue={nowUserEdit.contactOwner}/>
+                        <Input defaultValue={nowUserEdit.contactOwner} />
                     </Form.Item>
 
-                   
-                    </Form>
-                
-               
+
+                </Form>
+
+
             </Modal>
 
 
