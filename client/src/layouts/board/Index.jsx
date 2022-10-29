@@ -1,7 +1,9 @@
+import { BackTop } from 'antd'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from '../../components/boards/Header'
 import Leftbar from '../../components/boards/Leftbar'
+
 
 export default function Index() {
     return (
@@ -14,10 +16,11 @@ export default function Index() {
 
                     <Header />
                     <main className="p-6 sm:p-10 space-y-6">
-                     <Outlet />
+                        <Outlet />
                     </main>
                 </div>
             </body>
+            <BackTop visibilityHeight={50} />
         </div>
     )
 }

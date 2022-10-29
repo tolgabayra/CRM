@@ -49,6 +49,7 @@ export default function Contacts() {
             })
     }
 
+    {/* CONTACT SİLME İSTEĞİ */}
     const deleteContacts = () => {
         if (selectedContactsId === null) {
             message.warning("Lütfen kişi seçtikten sonra deneyiniz")
