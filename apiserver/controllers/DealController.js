@@ -4,7 +4,7 @@ const { getAllDeal,getDeal,deleteDeal,createDeal,updateDeal } = require("../serv
 const list = async (req,res) => {
   const id = req.params.id
   try {
-    const result = await getAllDeal(id)
+    const result = await getDeal(id)
     res.status(200).json(result)
   } catch (err) {
     res.status(500).json(err)
