@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const schemas = require("../validations/Users")
-const validate = require("../middleware/verifyValidate")
+const validate = require("../middlewares/verifyValidate")
 
 const AuthController = require("../controllers/AuthController")
 

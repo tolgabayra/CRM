@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const DealController = require("../controllers/DealController")
 
-const verifyAuthorization = require("../middleware/verifyAuthorization")
+const verifyAuthorization = require("../middlewares/verifyAuthorization")
 
 router.get("/", verifyAuthorization ,DealController.listAll)
 router.get("/:id",verifyAuthorization ,DealController.list)

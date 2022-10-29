@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const TaskController = require("../controllers/TaskController")
 
-const verifyAuthorization = require("../middleware/verifyAuthorization")
+const verifyAuthorization = require("../middlewares/verifyAuthorization")
 
 router.get("/", verifyAuthorization ,TaskController.listAll)
 router.get("/:id",verifyAuthorization ,TaskController.list)

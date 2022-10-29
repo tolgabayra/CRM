@@ -1,10 +1,10 @@
 const router = require("express").Router()
 const ContactController = require("../controllers/ContactController")
-const verifyAuthToken = require("../middleware/verifyAuthToken")
-const verifyAuthorizaton = require("../middleware/verifyAuthorization")
+const verifyAuthToken = require("../middlewares/verifyAuthToken")
+const verifyAuthorizaton = require("../middlewares/verifyAuthorization")
 
 const schemas = require("../validations/Contact")
-const validate = require("../middleware/verifyValidate")
+const validate = require("../middlewares/verifyValidate")
 
 
 router.get("/:id",verifyAuthorizaton ,ContactController.getContact)
