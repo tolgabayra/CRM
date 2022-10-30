@@ -5,11 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { SmileOutlined } from '@ant-design/icons';
 
 const itemsFromBackend = [
-  { id: uuidv4(), content: "First task" },
-  { id: uuidv4(), content: "Second task" },
-  { id: uuidv4(), content: "Third task" },
-  { id: uuidv4(), content: "Fourth task" },
-  { id: uuidv4(), content: "Fifth task" }
+  { _id: uuidv4(), content: "First task" },
+  { _id: uuidv4(), content: "Second task" },
+  { _id: uuidv4(), content: "Third task" },
+  { _id: uuidv4(), content: "Fourth task" },
+  { _id: uuidv4(), content: "Fifth task" }
 ];
 
 const columnsFromBackend = {
@@ -162,8 +162,8 @@ export default function Deals() {
                           {column.items.map((item, index) => {
                             return (
                               <Draggable
-                                key={item.id}
-                                draggableId={item.id}
+                                key={item._id}
+                                draggableId={item._id}
                                 index={index}
                               >
                                 {(provided, snapshot) => {

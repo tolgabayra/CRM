@@ -3,8 +3,9 @@ import { Button, Checkbox, Divider, Dropdown, Form, Input, Menu, message, Modal,
 import { red } from '@ant-design/colors';
 import { useState } from 'react';
 import { mainAxios } from '../../utils/appAxios';
-
-
+import Highlighter from 'react-highlight-words';
+import { useRef } from 'react';
+import { SearchOutlined } from "@ant-design/icons"
 
 export default function Contacts() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -17,6 +18,11 @@ export default function Contacts() {
     const [contactOwner, setContactowner] = useState("")
     const [selectedContactsId, setSelectedContactsId] = useState([])
     const [myContactList, setMyContactList] = useState([])
+
+    const [searchText, setSearchText] = useState('');
+    const [searchedColumn, setSearchedColumn] = useState('');
+    const searchInput = useRef(null);
+
 
     let emptyUser = {
         _id: null,
@@ -49,7 +55,7 @@ export default function Contacts() {
             })
     }
 
-    {/* CONTACT SİLME İSTEĞİ */}
+    {/* CONTACT SİLME İSTEĞİ */ }
     const deleteContacts = () => {
         if (selectedContactsId === null) {
             message.warning("Lütfen kişi seçtikten sonra deneyiniz")
@@ -73,12 +79,128 @@ export default function Contacts() {
     };
 
 
+
+
+
+
+
+
+    const handleSearch = (selectedKeys, confirm, dataIndex) => {
+        confirm();
+        setSearchText(selectedKeys[0]);
+        setSearchedColumn(dataIndex);
+    };
+    const handleReset = (clearFilters) => {
+        clearFilters();
+        setSearchText('');
+    };
+    const getColumnSearchProps = (dataIndex) => ({
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+            <div
+                style={{
+                    padding: 8,
+                }}
+            >
+                <Input
+                    ref={searchInput}
+                    placeholder={`Ara`}
+                    value={selectedKeys[0]}
+                    onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                    onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                    style={{
+                        marginBottom: 8,
+                        display: 'block',
+                    }}
+                />
+                <Space>
+                    <Button
+                        type=""
+                        onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+                        icon={<SearchOutlined />}
+                        size="small"
+                        style={{
+                            width: 90,
+                        }}
+                    >
+                        Ara
+                    </Button>
+                    <Button
+                        onClick={() => clearFilters && handleReset(clearFilters)}
+                        size="small"
+                        style={{
+                            width: 90,
+                        }}
+                    >
+                        Sil
+                    </Button>
+                    <Button
+                        type="link"
+                        size="small"
+                        onClick={() => {
+                            confirm({
+                                closeDropdown: false,
+                            });
+                            setSearchText(selectedKeys[0]);
+                            setSearchedColumn(dataIndex);
+                        }}
+                    >
+                        Sıfırla
+                    </Button>
+                </Space>
+            </div>
+        ),
+        filterIcon: (filtered) => (
+            <SearchOutlined
+                className='m-1 text-sm'
+                style={{
+                    color: filtered ? '#1890ff' : undefined,
+                }}
+            />
+        ),
+        onFilter: (value, record) =>
+            record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+        onFilterDropdownOpenChange: (visible) => {
+            if (visible) {
+                setTimeout(() => searchInput.current?.select(), 100);
+            }
+        },
+        render: (text) =>
+            searchedColumn === dataIndex ? (
+                <Highlighter
+                    highlightStyle={{
+                        backgroundColor: '#ffc069',
+                        padding: 0,
+                    }}
+                    searchWords={[searchText]}
+                    autoEscape
+                    textToHighlight={text ? text.toString() : ''}
+                />
+            ) : (
+                text
+            ),
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const columns = [
         {
             title: 'Ad Soyad',
             dataIndex: 'fullName',
             defaultSortOrder: 'descend',
             sorter: (a, b) => a.fullName.length - b.fullName.length,
+            ...getColumnSearchProps('fullName'),
 
 
         },
@@ -86,7 +208,8 @@ export default function Contacts() {
             title: 'Firma Adı',
             dataIndex: 'companyName',
             defaultSortOrder: 'descend',
-            sorter: (a, b) => a.companyName - b.companyName
+            sorter: (a, b) => a.companyName - b.companyName,
+            ...getColumnSearchProps('companyName')
         },
         {
             title: 'Email',
@@ -144,7 +267,6 @@ export default function Contacts() {
     const handleEdit = (record) => {
         console.log(record);
         setIsSecondModalOpen(true)
-
         setNowUserEdit({ ...record })
     }
 
@@ -188,7 +310,8 @@ export default function Contacts() {
 
     const handleCancel = () => {
         setIsSecondModalOpen(false)
-
+        setNowUserEdit(emptyUser)
+        console.log("SIFIRLANDI");
     }
 
 
@@ -225,6 +348,20 @@ export default function Contacts() {
             ]}
         />
     );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <div>
