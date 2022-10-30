@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const DealSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, unique: true },
-    pipeline: {type: String, required: true},
     closeDate: {type: Date },
     company: {type: String},
     status: {type: String},
