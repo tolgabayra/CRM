@@ -217,6 +217,7 @@ export default function Contacts() {
             width: 230,
             defaultSortOrder: 'descend',
             sorter: (a, b) => a.email - b.email,
+            ...getColumnSearchProps('email')
         },
         {
             title: 'Telefon',
@@ -311,7 +312,6 @@ export default function Contacts() {
     const handleCancel = () => {
         setIsSecondModalOpen(false)
         setNowUserEdit(emptyUser)
-        console.log("SIFIRLANDI");
     }
 
 
