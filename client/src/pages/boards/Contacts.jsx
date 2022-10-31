@@ -22,7 +22,7 @@ export default function Contacts() {
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
     const searchInput = useRef(null);
-
+    const [form] = Form.useForm();
 
     let emptyUser = {
         _id: null,
@@ -65,6 +65,7 @@ export default function Contacts() {
             })
                 .then((res) => {
                     message.success("Silme İşlemi Başarılı")
+                    getContactsList()
                     console.log(res);
                 })
                 .catch(err => {
@@ -188,12 +189,6 @@ export default function Contacts() {
 
 
 
-
-
-
-
-
-
     const columns = [
         {
             title: 'Ad Soyad',
@@ -275,6 +270,7 @@ export default function Contacts() {
 
     const showEditModal = () => {
         setIsEditModalOpen(true);
+        
     };
     const handleEditOk = () => {
         mainAxios.post("/api/v1/contacts", {
@@ -311,7 +307,8 @@ export default function Contacts() {
 
     const handleCancel = () => {
         setIsSecondModalOpen(false)
-        setNowUserEdit(emptyUser)
+        form.resetFields();
+        
     }
 
 
@@ -476,6 +473,7 @@ export default function Contacts() {
                 <Form
                     name=''
                     layout='vertical'
+                    form={form}
                 >
                     <Form.Item
                         label="Ad ve Soyad"
