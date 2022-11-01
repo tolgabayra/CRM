@@ -7,6 +7,10 @@
 <img src="./dashbaord.png"></img>
 <img src="./contacts.png"></img>
 
+##Drag and drop pipelines
+<img src="./dnd.png"></img>
+
+
 
 
 ## Tech
