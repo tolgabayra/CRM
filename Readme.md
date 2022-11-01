@@ -7,7 +7,8 @@
 <img src="./dashbaord.png"></img>
 <img src="./contacts.png"></img>
 
-##Drag and drop pipelines
+
+## Drag and drop pipelines
 <img src="./dnd.png"></img>
 
 
@@ -18,7 +19,9 @@
 Dillinger uses a number of open source projects to work properly:
 
 - ReactJS
+- Redux Toolkit
 - Ant Design and TailwindCSS
+- React DnD
 - NodeJs 
 - ExpressJS
 - MongoDB
