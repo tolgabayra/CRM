@@ -12,7 +12,7 @@ router.get("/", verifyAuthToken ,ContactController.getAllContact)
 router.post("/",verifyAuthorizaton ,validate(schemas.createValidation) ,ContactController.createContact)
 router.delete("/:id",verifyAuthorizaton ,ContactController.deleteContact)
 router.post("/multidelete", ContactController.deleteMultiContact)
-router.put("/:id",verifyAuthorizaton ,ContactController.updateContact)
+router.put("/:id",verifyAuthorizaton,validate(schemas.updateValidation) ,ContactController.updateContact)
 
 
 module.exports = router
