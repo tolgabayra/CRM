@@ -22,6 +22,10 @@ const getUser = async (req, res) => {
    
 }
 
+const showUser = async (req,res) => {
+  
+}
+
 
 module.exports = {
     getUser
